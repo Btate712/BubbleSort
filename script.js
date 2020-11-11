@@ -1,3 +1,10 @@
+// Test to verify script.js properly linked to index.html
+main = document.getElementsByTagName("main")[0];
+testLine = document.createElement("div");
+testLine.id = "test";
+testLine.innerHTML = "Hello World!";
+main.appendChild(testLine);
+
 // generate 10 random integers and store those integers in an array
 
 // display the unsorted array and the bubble sort pseudocode
