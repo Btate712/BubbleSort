@@ -1,16 +1,12 @@
 // Declare constants to avoid use of "magic numbers"
 const MIN = 1;
 const MAX = 50;
-const ARRAY_SIZE = 10;
+const ARRAY_SIZE = 15;
 
 const numbers = [];
 
-// Test to verify script.js properly linked to index.html
+// Get main element from DOM
 main = document.getElementsByTagName("main")[0];
-testLine = document.createElement("h1");
-testLine.id = "test";
-testLine.innerHTML = "Hello World!";
-main.appendChild(testLine);
 
 for(i = 0; i < ARRAY_SIZE; i++) {
   numbers.push(randomInt(MIN, MAX));
