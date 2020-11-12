@@ -1,7 +1,7 @@
 // Declare constants to avoid use of "magic numbers"
 const MIN = 1;
 const MAX = 100;
-const ARRAY_SIZE = 10;
+const ARRAY_SIZE = 5;
 const DELAY = 1000;
 const CHECK = 1;
 const SWAP = 2;
@@ -21,9 +21,13 @@ for(i = 0; i < ARRAY_SIZE; i++) {
 // display the unsorted array and the bubble sort pseudocode
 // display the array in the DOM
 showArray(unsortedArray);
-const {sortedArray, sortingSteps} = bubbleSort(unsortedArray);
 
-stepThroughSort(unsortedArray, sortingSteps);
+function startSort() {
+  document.getElementById("start-button").remove();
+  const {sortedArray, sortingSteps} = bubbleSort(unsortedArray);
+
+  stepThroughSort(unsortedArray, sortingSteps);
+}
 
 // Functions:
 // step through sort 
