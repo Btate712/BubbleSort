@@ -1,7 +1,7 @@
 // Declare constants to avoid use of "magic numbers"
 const MIN = 1;
 const MAX = 100;
-const ARRAY_SIZE = 5;
+const ARRAY_SIZE = 7;
 const DELAY = 1000;
 const CHECK = 1;
 const SWAP = 2;
@@ -79,7 +79,7 @@ function stepThroughSort(unsortedArray, steps) {
           document.getElementById(`array-element-${i}`).classList.add("sorted");
           document.getElementById(`array-element-${i}`).classList.add("sorted");
         }
-        if(position == localArray.length - 2) {
+        if(position == localArray.length - 1) {
           showMessage(`Array is sorted for element ${position}. We no longer need to check this position.`);
         } else {
           showMessage(`Array is sorted for elements between position ${position} and the end of the array. We no longer need to check these positions.`);
@@ -140,6 +140,10 @@ function bubbleSort(numbers) {
         });
       }
     }
+    sortingSteps.push({
+      operation: SORTED_TO,
+      position: n - i - 1
+    });
     sortingSteps.push({
       operation: SORTED_TO,
       position: n - i - 1
