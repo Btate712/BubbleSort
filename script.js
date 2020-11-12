@@ -72,7 +72,7 @@ function stepThroughSort(unsortedArray, steps) {
         case SWAPPED:
           document.getElementById(`array-element-${position}`).classList.add("swapped");
           document.getElementById(`array-element-${position + 1}`).classList.add("swapped");
-          showMessage(`${localArray[position]} is greater than ${localArray[position + 1]}. Swapping positions ${position} and ${position + 1}.`);
+          showMessage(`${localArray[position + 1]} is greater than ${localArray[position]}. Swapping positions ${position} and ${position + 1}.`);
           break;
       case SORTED_TO:
         for(i = position; i < localArray.length; i++) {

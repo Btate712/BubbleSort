@@ -9,7 +9,7 @@ h1 {
 
 .description {
   color: lightblue;
-  width: 30em;
+  max-width: 30em;
 }
 
 .numbers {
