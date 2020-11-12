@@ -1,3 +1,7 @@
+body {
+  color: white;
+  background-color: #333;
+}
 .numbers {
   font-size: large;
   width: 3.5em;

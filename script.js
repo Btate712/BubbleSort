@@ -9,15 +9,13 @@ const SWAPPED = 3;
 const SORTED_TO = 4;
 const COMPLETE = 5;
 
-const unsortedArray = [];
+let unsortedArray = [];
 
 // Get main element from DOM
 const main = document.getElementsByTagName("main")[0];
 
-// poulate unsortedArray array with random numbers
-for(i = 0; i < ARRAY_SIZE; i++) {
-  unsortedArray.push(randomInt(MIN, MAX));
-}
+randomizeArray(unsortedArray);
+
 // display the unsorted array and the bubble sort pseudocode
 // display the array in the DOM
 showArray(unsortedArray);
@@ -25,11 +23,22 @@ showArray(unsortedArray);
 function startSort() {
   document.getElementById("start-button").remove();
   const {sortedArray, sortingSteps} = bubbleSort(unsortedArray);
-
   stepThroughSort(unsortedArray, sortingSteps);
 }
 
 // Functions:
+function repeat() {
+  unsortedArray = [];
+  randomizeArray(unsortedArray);
+  startSort();
+}
+
+// populate array with random numbers
+function randomizeArray(array) {
+  for(i = 0; i < ARRAY_SIZE; i++) {
+    array.push(randomInt(MIN, MAX));
+  }
+}
 // step through sort 
 function stepThroughSort(unsortedArray, steps) {
   const localArray = [...unsortedArray];
@@ -66,7 +75,7 @@ function stepThroughSort(unsortedArray, steps) {
           document.getElementById(`array-element-${i}`).classList.add("sorted");
           document.getElementById(`array-element-${i}`).classList.add("sorted");
         }
-        showMessage(`Sorted from element ${position} to end of array.`);
+        showMessage(`Array is sorted from element ${position} to end of array.`);
         break;
       case COMPLETE:
         for(i = 0; i < localArray.length; i++) {
@@ -78,6 +87,7 @@ function stepThroughSort(unsortedArray, steps) {
     stepCounter++;
     if(stepCounter >= steps.length) {
       clearInterval(interval);
+      showRepeatButton();
     }
   }
 }
@@ -131,7 +141,13 @@ function bubbleSort(numbers) {
   return {sortingSteps: sortingSteps, sortedArray: array};
 }
 
-
+function showRepeatButton() {
+  const button = document.createElement("button");
+  button.id = "start-button";
+  button.textContent = "Do It Again!";
+  button.onclick = repeat;
+  document.getElementsByTagName("body")[0].appendChild(button);
+}
 
 // generate random integers
 function randomInt(min, max) {
