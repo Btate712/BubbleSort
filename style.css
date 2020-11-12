@@ -1,3 +1,8 @@
+.numbers {
+  font-size: large;
+  width: 3.5em;
+}
+
 .checking, .swapped {
   color: green;
   background-color: cyan;
@@ -11,4 +16,8 @@
 .sorted {
   color: lightgreen;
   background-color: green;
+}
+
+#message {
+  font-size: x-large;
 }
