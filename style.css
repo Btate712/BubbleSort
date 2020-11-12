@@ -2,6 +2,16 @@ body {
   color: white;
   background-color: #333;
 }
+
+h1 {
+  color: orangered;
+}
+
+.description {
+  color: lightblue;
+  width: 60%;
+}
+
 .numbers {
   margin-left: 1.5em;
   padding: 10px;
