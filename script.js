@@ -8,6 +8,7 @@ const SWAP = 2;
 const SWAPPED = 3;
 const SORTED_TO = 4;
 const COMPLETE = 5;
+const NEW_PASS = 6;
 
 let unsortedArray = [];
 
@@ -51,6 +52,9 @@ function stepThroughSort(unsortedArray, steps) {
     let i;
     showArray(localArray);
     switch(operation) {
+      case NEW_PASS:
+        showMessage(`Starting pass #${position + 1}.`);
+        break;
       case CHECK:
         document.getElementById(`array-element-${position}`).classList.add("checking");
         document.getElementById(`array-element-${position + 1}`).classList.add("checking");
@@ -75,7 +79,11 @@ function stepThroughSort(unsortedArray, steps) {
           document.getElementById(`array-element-${i}`).classList.add("sorted");
           document.getElementById(`array-element-${i}`).classList.add("sorted");
         }
-        showMessage(`Array is sorted from element ${position} to end of array.`);
+        if(position == localArray.length - 2) {
+          showMessage(`Array is sorted for element ${position}. We no longer need to check this position.`);
+        } else {
+          showMessage(`Array is sorted for elements between position ${position} and the end of the array. We no longer need to check these positions.`);
+        }
         break;
       case COMPLETE:
         for(i = 0; i < localArray.length; i++) {
@@ -108,7 +116,10 @@ function bubbleSort(numbers) {
   
   // perform a bubble sort on the array and store the steps performed on the sort
   for (let i = 0; i < n-1; i++) {
-    sortingSteps.push(`Pass #${i + 1}`);
+    sortingSteps.push({
+      operation: NEW_PASS,
+      position: i
+    });
     for (let j = 0; j < n-i-1; j++) {
       sortingSteps.push({
         operation: CHECK,
