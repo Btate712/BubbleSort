@@ -5,7 +5,8 @@ const ARRAY_SIZE = 10;
 const DELAY = 1000;
 const CHECK = 1;
 const SWAP = 2;
-const SORTED_TO = 3;
+const SWAPPED = 3;
+const SORTED_TO = 4;
 
 const unsortedArray = [];
 
@@ -32,14 +33,27 @@ function stepThroughSort(unsortedArray, steps) {
   
   function showStep() {
     const currentStep = steps[stepCounter];
+    const {position, operation} = currentStep;
     showArray(localArray);
-    switch(currentStep.operation) {
+    switch(operation) {
       case CHECK:
-        const { position } = currentStep;
         document.getElementById(`array-element-${position}`).classList.add("checking");
         document.getElementById(`array-element-${position + 1}`).classList.add("checking");
-        console.log(`Checking position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`)
+        console.log(`Checking position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`);
         break;
+      case SWAP:
+        document.getElementById(`array-element-${position}`).classList.add("swapping");
+        document.getElementById(`array-element-${position + 1}`).classList.add("swapping");
+        console.log(`Swapping position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}...`);
+        // perform swap on local array
+        const temp = localArray[position];
+        localArray[position] = localArray[position + 1];
+        localArray[position + 1] = temp;
+        break;
+      case SWAPPED:
+        document.getElementById(`array-element-${position}`).classList.add("swapped");
+        document.getElementById(`array-element-${position + 1}`).classList.add("swapped");
+        console.log(`Swapped position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`);
     }
     console.log(steps[stepCounter]);
     stepCounter++;
@@ -67,6 +81,10 @@ function bubbleSort(numbers) {
         array[j+1] = temp; 
         sortingSteps.push({
           operation: SWAP,
+          position: j
+        });
+        sortingSteps.push({
+          operation: SWAPPED,
           position: j
         });
       }

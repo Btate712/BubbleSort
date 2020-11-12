@@ -1,4 +1,9 @@
-.checking {
+.checking, .swapped {
   color: green;
   background-color: cyan;
+}
+
+.swapping {
+  color: red;
+  background-color: lightpink;
 }
