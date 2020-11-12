@@ -1,23 +1,26 @@
 // Declare constants to avoid use of "magic numbers"
 const MIN = 1;
 const MAX = 100;
-const ARRAY_SIZE = 15;
+const ARRAY_SIZE = 10;
+const DELAY = 500;
+const CHECK = 1;
+const SWAP = 2;
+const SORTED_TO = 3;
 
-let numbers = [];
+const unsortedArray = [];
 
 // Get main element from DOM
 main = document.getElementsByTagName("main")[0];
 
-// poulate numbers array with random numbers
+// poulate unsortedArray array with random numbers
 for(i = 0; i < ARRAY_SIZE; i++) {
-  numbers.push(randomInt(MIN, MAX));
+  unsortedArray.push(randomInt(MIN, MAX));
 }
 // display the unsorted array and the bubble sort pseudocode
 // display the array in the DOM
-console.log(numbers);
-showArray(numbers);
-numbers = bubbleSort(numbers);
-showArray(numbers);
+showArray(unsortedArray);
+const {sortedArray, sortingSteps} = bubbleSort(unsortedArray);
+stepThroughSort(unsortedArray, sortingSteps);
 
 // Functions:
 
@@ -25,20 +28,48 @@ showArray(numbers);
 function bubbleSort(numbers) {
   const array = [...numbers];
   const n = array.length; 
-
+  const sortingSteps = [];
+  
+  // perform a bubble sort on the array and store the steps performed on the sort
   for (let i = 0; i < n-1; i++) {
+    sortingSteps.push(`Pass #${i + 1}`);
     for (let j = 0; j < n-i-1; j++) {
+      sortingSteps.push({
+        operation: CHECK,
+        position: j
+      });
       if (array[j] > array[j+1]) { 
         // swap array[j+1] and array[j] 
-        console.log(`Swapping elements ${j}: ${array[j]} and ${j + 1}: ${array[j + 1]}`);
         let temp = array[j]; 
         array[j] = array[j+1]; 
         array[j+1] = temp; 
-      } 
+        sortingSteps.push({
+          operation: SWAP,
+          position: j
+        });
+      }
     }
+    sortingSteps.push({
+      operation: SORTED_TO,
+      position: n - i - 1
+    });
   }
-  return array;
+  console.log({sortingSteps: sortingSteps, sortedArray: array});
+  return {sortingSteps: sortingSteps, sortedArray: array};
 }
+
+// step through sort 
+function stepThroughSort(unsortedArray, steps) {
+  const localArray = [...unsortedArray];
+  let stepCounter = 0;
+  setInterval(showStep, DELAY);
+  
+  function showStep() {
+    console.dir(steps[stepCounter]);
+    stepCounter++;
+  }
+}
+
 
 // generate random integers
 function randomInt(min, max) {
@@ -58,6 +89,5 @@ function showArray(array) {
   main.innerHTML = "";
   main.appendChild(arrayHTML);
 }
-// perform a bubble sort on the array, re-rendering the display
 // and explaining the step performed as each line of pseudocode is 
 // performed.
