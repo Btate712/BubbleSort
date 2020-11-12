@@ -7,6 +7,7 @@ const CHECK = 1;
 const SWAP = 2;
 const SWAPPED = 3;
 const SORTED_TO = 4;
+const COMPLETE = 5;
 
 const unsortedArray = [];
 
@@ -29,35 +30,60 @@ stepThroughSort(unsortedArray, sortingSteps);
 function stepThroughSort(unsortedArray, steps) {
   const localArray = [...unsortedArray];
   let stepCounter = 0;
-  setInterval(showStep, DELAY);
+  const interval = setInterval(showStep, DELAY);
   
   function showStep() {
     const currentStep = steps[stepCounter];
     const {position, operation} = currentStep;
+    let i;
     showArray(localArray);
     switch(operation) {
       case CHECK:
         document.getElementById(`array-element-${position}`).classList.add("checking");
         document.getElementById(`array-element-${position + 1}`).classList.add("checking");
-        console.log(`Checking position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`);
+        showMessage(`Checking position ${position} and position ${position + 1}.`);
         break;
       case SWAP:
         document.getElementById(`array-element-${position}`).classList.add("swapping");
         document.getElementById(`array-element-${position + 1}`).classList.add("swapping");
-        console.log(`Swapping position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}...`);
+        showMessage(`${localArray[position]} is greater than ${localArray[position + 1]}. Swapping positions ${position} and ${position + 1}.`);
         // perform swap on local array
         const temp = localArray[position];
         localArray[position] = localArray[position + 1];
         localArray[position + 1] = temp;
         break;
-      case SWAPPED:
-        document.getElementById(`array-element-${position}`).classList.add("swapped");
-        document.getElementById(`array-element-${position + 1}`).classList.add("swapped");
-        console.log(`Swapped position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`);
+        case SWAPPED:
+          document.getElementById(`array-element-${position}`).classList.add("swapped");
+          document.getElementById(`array-element-${position + 1}`).classList.add("swapped");
+          showMessage(`${localArray[position]} is greater than ${localArray[position + 1]}. Swapping positions ${position} and ${position + 1}.`);
+          break;
+      case SORTED_TO:
+        for(i = position; i < localArray.length; i++) {
+          document.getElementById(`array-element-${i}`).classList.add("sorted");
+          document.getElementById(`array-element-${i}`).classList.add("sorted");
+        }
+        showMessage(`Sorted from element ${position} to end of array.`);
+        break;
+      case COMPLETE:
+        for(i = 0; i < localArray.length; i++) {
+          document.getElementById(`array-element-${i}`).classList.add("sorted");
+        }
+        showMessage("Sorting Complete!");
+        break;
     }
-    console.log(steps[stepCounter]);
     stepCounter++;
+    if(stepCounter >= steps.length) {
+      clearInterval(interval);
+    }
   }
+}
+
+// show message
+function showMessage(message) {
+  const messageHTML = document.createElement("div");
+  messageHTML.id = "message";
+  messageHTML.innerHTML = message;
+  main.appendChild(messageHTML);
 }
 
 // bubble sort
@@ -94,7 +120,10 @@ function bubbleSort(numbers) {
       position: n - i - 1
     });
   }
-  console.log({sortingSteps: sortingSteps, sortedArray: array});
+  sortingSteps.push({
+    operation: COMPLETE,
+    position: 0
+  })
   return {sortingSteps: sortingSteps, sortedArray: array};
 }
 
