@@ -2,7 +2,7 @@
 const MIN = 1;
 const MAX = 100;
 const ARRAY_SIZE = 10;
-const DELAY = 500;
+const DELAY = 1000;
 const CHECK = 1;
 const SWAP = 2;
 const SORTED_TO = 3;
@@ -10,7 +10,7 @@ const SORTED_TO = 3;
 const unsortedArray = [];
 
 // Get main element from DOM
-main = document.getElementsByTagName("main")[0];
+const main = document.getElementsByTagName("main")[0];
 
 // poulate unsortedArray array with random numbers
 for(i = 0; i < ARRAY_SIZE; i++) {
@@ -20,9 +20,31 @@ for(i = 0; i < ARRAY_SIZE; i++) {
 // display the array in the DOM
 showArray(unsortedArray);
 const {sortedArray, sortingSteps} = bubbleSort(unsortedArray);
+
 stepThroughSort(unsortedArray, sortingSteps);
 
 // Functions:
+// step through sort 
+function stepThroughSort(unsortedArray, steps) {
+  const localArray = [...unsortedArray];
+  let stepCounter = 0;
+  setInterval(showStep, DELAY);
+  
+  function showStep() {
+    const currentStep = steps[stepCounter];
+    showArray(localArray);
+    switch(currentStep.operation) {
+      case CHECK:
+        const { position } = currentStep;
+        document.getElementById(`array-element-${position}`).classList.add("checking");
+        document.getElementById(`array-element-${position + 1}`).classList.add("checking");
+        console.log(`Checking position ${position}: ${localArray[position]} and position ${position + 1}: ${localArray[position + 1]}`)
+        break;
+    }
+    console.log(steps[stepCounter]);
+    stepCounter++;
+  }
+}
 
 // bubble sort
 function bubbleSort(numbers) {
@@ -58,17 +80,6 @@ function bubbleSort(numbers) {
   return {sortingSteps: sortingSteps, sortedArray: array};
 }
 
-// step through sort 
-function stepThroughSort(unsortedArray, steps) {
-  const localArray = [...unsortedArray];
-  let stepCounter = 0;
-  setInterval(showStep, DELAY);
-  
-  function showStep() {
-    console.dir(steps[stepCounter]);
-    stepCounter++;
-  }
-}
 
 
 // generate random integers
