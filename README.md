@@ -13,9 +13,9 @@ In order to visually animate the sort, I first added code to the sorting algorit
 of all comparisons and swaps in the order they were performed. Each comparison and swap is stored
 as an object literal consisting of an operation and a position. These object literals are pushed
 onto an array in the order that the operation was performed. After the sorting algorithm is complete,
-the array of operations is fed into the "stepThroughSort" function which displays the array and
+the array of operations is fed into the `stepThroughSort()` function which displays the array and
 provides messages and hilighting to show what comparisons and swaps are being made. Timing for 
-the animation is provided by the "setInterval" function.
+the animation is provided by the `setInterval()` function.
 
 Technologies used:
 Basic HTML, CSS, and JavaScript
