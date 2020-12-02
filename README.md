@@ -1,6 +1,9 @@
 # BubbleSort
 Visually illustrates the bubble sort algorithm step-by-step on an array of random integers.
 
+To run this code, clone the repository using `git clone` and open the html file in your browser
+using `open bubblesort.html`.
+
 A bubble sort makes multiple passes on an array. Each pass goes as follows:
 The algorithm checks each value against the next value. The check being perfromed depends 
 on the "direction" of the sort. If the items in the array are being sorted in ascending order, 
